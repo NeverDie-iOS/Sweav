@@ -36,7 +36,7 @@ struct LoginView: View {
                 } label: {
                     ZStack {
                         Text("카카오로 로그인하기")
-                            .font(.system(size: 16))
+                            .font(.system(size: 16, weight: .semibold))
                             .frame(maxWidth: .infinity, alignment: .center)
                             .foregroundStyle(Color(hex: "#1A1700"))
                             .padding(.vertical, 16.5)
@@ -56,7 +56,7 @@ struct LoginView: View {
                 } label: {
                     ZStack {
                         Text("Apple로 로그인하기")
-                            .font(.system(size: 16))
+                            .font(.system(size: 16, weight: .semibold))
                             .frame(maxWidth: .infinity, alignment: .center)
                             .foregroundColor(.white)
                             .padding(.vertical, 16.5)
