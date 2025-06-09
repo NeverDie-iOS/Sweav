@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  Sweav
-//
-//  Created by HyunSoo on 6/9/25.
-//
-
 import SwiftUI
 
 struct ContentView: View {
