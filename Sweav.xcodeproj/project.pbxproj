@@ -6,12 +6,7 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		544E45A32DF6E6730076C16A /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 544E45A22DF6E6730076C16A /* Config.xcconfig */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
-		544E45A22DF6E6730076C16A /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		545CD81B2DF6E37300E59E7C /* Sweav.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sweav.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -37,7 +32,6 @@
 		545CD8122DF6E37300E59E7C = {
 			isa = PBXGroup;
 			children = (
-				544E45A22DF6E6730076C16A /* Config.xcconfig */,
 				545CD81D2DF6E37300E59E7C /* Sweav */,
 				545CD81C2DF6E37300E59E7C /* Products */,
 			);
@@ -115,7 +109,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				544E45A32DF6E6730076C16A /* Config.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
