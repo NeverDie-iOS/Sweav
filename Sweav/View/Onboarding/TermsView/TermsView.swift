@@ -1,0 +1,200 @@
+import SwiftUI
+
+enum OnboardingRoute: String, Hashable {
+    case nameIdSetup = "NameIdSetupView"
+}
+
+struct TermsView: View {
+    @State private var isTermsAgreed: Bool = false
+    @State private var isPrivacyAgreed: Bool = false
+    @State private var isPushAgreed: Bool = false
+    @State private var showTermsSheet: Bool = false
+    @State private var showPrivacySheet: Bool = false
+    @State private var showToast = false
+    @State private var navigationPath = NavigationPath()
+    
+    var body: some View {
+        NavigationStack(path: $navigationPath) {
+            VStack(alignment: .leading) {
+                Text("스위브 이용을 위해\n약관에 동의해주세요.")
+                    .font(.system(size: 24, weight: .heavy))
+                    .padding(.top, 87)
+                
+                HStack {
+                    Button {
+                        isTermsAgreed = true
+                        isPrivacyAgreed = true
+                        isPushAgreed = true
+                    } label: {
+                        Image("Unchecked")
+                            .renderingMode(.template)
+                            .foregroundStyle(Color.white)
+                            .padding(9)
+                            .background {
+                                Circle()
+                                    .foregroundStyle(
+                                        isTermsAgreed && isPrivacyAgreed && isPushAgreed
+                                        ? Color.main
+                                        : Color(hex: "#DCDAD7")
+                                    )
+                            }
+                    }
+                    
+                    Text("전체 동의")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundStyle(Color.default)
+                }
+                .padding(.top, 150)
+                
+                
+                VStack(spacing: 15) {
+                    HStack {
+                        Button {
+                            isTermsAgreed.toggle()
+                        } label: {
+                            isTermsAgreed ? Image("Checked") : Image("Unchecked")
+                        }
+                        
+                        Text("필수")
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundStyle(Color.main)
+                            .padding(.vertical, 4)
+                            .padding(.horizontal, 6)
+                            .background(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .fill(Color(hex: "#E9F5F4"))
+                            )
+                            .padding(.leading, 9)
+                        
+                        Text("서비스 이용약관")
+                            .foregroundStyle(Color.default)
+                            .padding(.leading, 4.5)
+                        
+                        Spacer()
+                        
+                        Button {
+                            showTermsSheet = true
+                        } label: {
+                            Text("보기")
+                                .foregroundStyle(Color.tertiary)
+                        }
+                        .sheet(isPresented: $showTermsSheet) {
+                            TermsSheetView()
+                        }
+                    }
+                    
+                    HStack {
+                        Button {
+                            isPrivacyAgreed.toggle()
+                        } label: {
+                            isPrivacyAgreed ? Image("Checked") : Image("Unchecked")
+                        }
+                        
+                        
+                        Text("필수")
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundStyle(Color.main)
+                            .padding(.vertical, 4)
+                            .padding(.horizontal, 6)
+                            .background(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .fill(Color(hex: "#E9F5F4"))
+                            )
+                            .padding(.leading, 9)
+                        
+                        Text("개인정보 처리방침")
+                            .foregroundStyle(Color.default)
+                            .padding(.leading, 4.5)
+                        
+                        Spacer()
+                        
+                        Button {
+                            showPrivacySheet = true
+                        } label: {
+                            Text("보기")
+                                .foregroundStyle(Color.tertiary)
+                        }
+                        .sheet(isPresented: $showPrivacySheet) {
+                            PrivacySheetView()
+                        }
+                    }
+                    
+                    HStack() {
+                        Button {
+                            isPushAgreed.toggle()
+                        } label: {
+                            isPushAgreed ? Image("Checked") : Image("Unchecked")
+                        }
+                        
+                        Text("선택")
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundStyle(Color(hex: "#70706E"))
+                            .padding(.vertical, 4)
+                            .padding(.horizontal, 6)
+                            .background(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .fill(Color(hex: "#F0EEEA"))
+                            )
+                            .padding(.leading, 9)
+                        
+                        Text("푸시 알림 기능")
+                            .foregroundStyle(Color.default)
+                            .padding(.leading, 4.5)
+                        
+                        Spacer()
+                        
+                        EmptyView()
+                    }
+                }
+                .padding(.top, 16)
+                .padding(.leading, 9)
+                
+                Spacer()
+                
+                Button {
+                    if isTermsAgreed && isPrivacyAgreed {
+                        navigationPath.append(OnboardingRoute.nameIdSetup)
+                    } else {
+                        showToast = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            showToast = false
+                        }
+                    }
+                } label: {
+                    Text("다음")
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundStyle(Color.white)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 17)
+                        .background(isTermsAgreed && isPrivacyAgreed ? Color.main : Color.disabled)
+                        .cornerRadius(16)
+                }
+                .overlay(
+                    Group {
+                        if showToast {
+                            CustomToastMessageView(message: "서비스 이용을 위한 필수 항목에 동의해 주세요.")
+                                .offset(y: -70)
+                        }
+                    }
+                        .transition(.opacity)
+                        .animation(.easeInOut(duration: 0.3), value: showToast)
+                )
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .padding(.horizontal, 40)
+            .navigationDestination(for: OnboardingRoute.self) { route in
+                switch route {
+                    case .nameIdSetup:
+                        NameIdSetupView()
+                    default :
+                        EmptyView()
+                }
+            }
+        }
+    }
+}
+
+
+#Preview {
+    TermsView()
+}

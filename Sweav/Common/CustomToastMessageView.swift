@@ -10,7 +10,7 @@ struct CustomToastMessageView: View {
             .frame(maxWidth: .infinity)
             .foregroundColor(.white)
             .padding(.vertical, 19.5)
-            .background(Color(hex: "#2A9D8F").opacity(0.4))
+            .background(Color(hex: "#2A9D8F").opacity(0.6))
             .cornerRadius(200)
             .shadow(color: .black.opacity(0.2), radius: 2, x: 0, y: 2)
     }
