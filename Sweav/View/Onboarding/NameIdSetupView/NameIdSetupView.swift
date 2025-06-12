@@ -7,6 +7,8 @@ struct NameIdSetupView: View {
     @FocusState private var isNicknameFocused: Bool
     @FocusState private var isIdFocused: Bool
     
+    @StateObject private var nameIdSetupVM = NameIdSetupViewModel()
+    
     var body: some View {
         VStack(alignment: .leading) {
             Text("만나서 반가워요!\n제가 어떻게 부르면 될까요?")
@@ -20,13 +22,8 @@ struct NameIdSetupView: View {
                         .frame(width: 60)
                         .font(.system(size: 14, weight: .semibold))
                         .foregroundStyle(Color(hex: "#70706E"))
-                    TextField(
-                        "",
-                        text: $nickname,
-                        prompt: Text("귀여운 판다")
-                            .font(.system(size: 20, weight: .semibold))
-                            .foregroundColor(Color.default)
-                    )
+                    
+                    TextField("", text: $nickname)
                     .focused($isNicknameFocused)
                     .font(.system(size: 20, weight: .semibold))
                     .foregroundStyle(Color.default)
@@ -46,13 +43,7 @@ struct NameIdSetupView: View {
                         .font(.system(size: 14, weight: .semibold))
                         .foregroundStyle(Color(hex: "#70706E"))
                     
-                    TextField(
-                        "",
-                        text: $id,
-                        prompt: Text("user123")
-                            .font(.system(size: 16))
-                            .foregroundColor(Color.default)
-                    )
+                    TextField("", text: $id)
                     .keyboardType(.asciiCapable)
                     .focused($isIdFocused)
                     .font(.system(size: 16))
@@ -91,6 +82,12 @@ struct NameIdSetupView: View {
         }
         .padding(.horizontal, 40)
         .navigationBarBackButtonHidden(true)
+        .onReceive(nameIdSetupVM.$randomNickname) { newNickname in
+            nickname = newNickname
+        }
+        .onReceive(nameIdSetupVM.$randomId) { newId in
+            id = newId
+        }
     }
 }
 
