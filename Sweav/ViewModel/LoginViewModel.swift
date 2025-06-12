@@ -1,18 +1,27 @@
 import SwiftUI
+import Alamofire
 import KakaoSDKCommon
 import KakaoSDKAuth
 import KakaoSDKUser
+import SwiftKeychainWrapper
 
 class LoginViewModel: ObservableObject {
+    @Published var navigationState: NavigationState?
+    
+    enum NavigationState: Identifiable {
+        case onboarding
+        case main
+        
+        var id: String { "\(self)" }
+    }
+    
+    
     @Published var showLogo = false
     @Published var showMainText = false
     @Published var showSubText = false
     @Published var showLoginButtons = false
     
-    @Published var userEmail: String?
-    @Published var userNickname: String?
     @Published var loginError: String?
-    @Published var isLoggedIn: Bool = false
     
     func startAnimations() {
         withAnimation(.easeInOut(duration: 0.6)) {
@@ -35,6 +44,8 @@ class LoginViewModel: ObservableObject {
         }
     }
     
+    
+    // MARK: - 카카오 로그인
     func kakaoLogin() {
         if UserApi.isKakaoTalkLoginAvailable() {
             UserApi.shared.loginWithKakaoTalk { [weak self] (oauthToken, error) in
@@ -46,7 +57,7 @@ class LoginViewModel: ObservableObject {
             }
         }
     }
-
+    
     private func handleKakaoLoginResult(oauthToken: OAuthToken?, error: Error?) {
         if let error = error {
             DispatchQueue.main.async {
@@ -55,17 +66,42 @@ class LoginViewModel: ObservableObject {
             return
         }
         
-        UserApi.shared.me { [weak self] (user, error) in
+        guard let accessToken = oauthToken?.accessToken else {
             DispatchQueue.main.async {
-                if let user = user {
-                    self?.userEmail = user.kakaoAccount?.email
-                    self?.userNickname = user.kakaoAccount?.profile?.nickname
-                    self?.isLoggedIn = true
-                } else {
-                    self?.loginError = error?.localizedDescription ?? "Unknown error"
-                }
+                self.loginError = "카카오 토큰이 없습니다."
             }
+            return
         }
         
+        sendKakaoTokenToServer(accessToken: accessToken)
     }
+    
+    private func sendKakaoTokenToServer(accessToken: String) {
+        let url = "http://ec2-54-253-28-13.ap-southeast-2.compute.amazonaws.com:8081/auth/login/kakao"
+        let headers: HTTPHeaders = ["KakaoAccessToken": accessToken]
+        
+        AF.request(url, method: .post, headers: headers)
+            .responseDecodable(of: AuthLoginKakaoResponse.self) { response in
+                DispatchQueue.main.async {
+                    switch response.result {
+                        case .success(let authResponse):
+                            KeychainWrapper.standard.set(authResponse.data.accessToken, forKey: "accessToken")
+                            
+                            if !authResponse.data.onboardingComplete {
+                                self.navigationState = .onboarding
+                            } else {
+                                // Expired refreshtoken && complete onboarding
+                                // TODO: Navigate to Main View
+                            }
+                            
+                            
+                        case .failure(let error):
+                            print("카카오 로그인 실패: \(error)")
+                            self.loginError = error.localizedDescription
+                    }
+                }
+            }
+    }
+    
+    
 }

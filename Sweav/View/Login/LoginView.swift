@@ -32,7 +32,7 @@ struct LoginView: View {
             
             VStack(spacing: 16) {
                 Button {
-                    // Kakao login
+                    loginVM.kakaoLogin()
                 } label: {
                     ZStack {
                         Text("카카오로 로그인하기")
@@ -77,6 +77,16 @@ struct LoginView: View {
         .padding(.horizontal, 40)
         .onAppear {
             loginVM.startAnimations()
+        }
+        .fullScreenCover(item: $loginVM.navigationState) { state in
+            switch state {
+                case .onboarding:
+                    TermsView()
+                case .main:
+                    // TODO:  ex. MainView()
+                    EmptyView()
+                    //
+            }
         }
     }
 }
