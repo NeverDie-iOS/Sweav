@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		47F664840E6C2B9432D0FC77 /* Pods_Sweav.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A54CF662951A07C9365E875 /* Pods_Sweav.framework */; };
+		54CE04132DFB230100A2D359 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 54CE04122DFB230100A2D359 /* Kingfisher */; };
 		54F9B7522DF7019500148D1B /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 54F9B7512DF7019500148D1B /* KakaoSDK */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54CE04132DFB230100A2D359 /* Kingfisher in Frameworks */,
 				54F9B7522DF7019500148D1B /* KakaoSDK in Frameworks */,
 				47F664840E6C2B9432D0FC77 /* Pods_Sweav.framework in Frameworks */,
 			);
@@ -110,6 +112,7 @@
 			name = Sweav;
 			packageProductDependencies = (
 				54F9B7512DF7019500148D1B /* KakaoSDK */,
+				54CE04122DFB230100A2D359 /* Kingfisher */,
 			);
 			productName = Sweav;
 			productReference = 545CD81B2DF6E37300E59E7C /* Sweav.app */;
@@ -142,6 +145,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				54F9B7502DF7019500148D1B /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+				54CE04112DFB230100A2D359 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 545CD81C2DF6E37300E59E7C /* Products */;
@@ -445,6 +449,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		54CE04112DFB230100A2D359 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.3.2;
+			};
+		};
 		54F9B7502DF7019500148D1B /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
@@ -456,6 +468,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		54CE04122DFB230100A2D359 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 54CE04112DFB230100A2D359 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
 		54F9B7512DF7019500148D1B /* KakaoSDK */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 54F9B7502DF7019500148D1B /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;

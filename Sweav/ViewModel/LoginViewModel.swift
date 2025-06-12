@@ -86,6 +86,7 @@ class LoginViewModel: ObservableObject {
                     switch response.result {
                         case .success(let authResponse):
                             KeychainWrapper.standard.set(authResponse.data.accessToken, forKey: "accessToken")
+                            UserDefaults.standard.set(authResponse.data.profileImgUrl, forKey: "profileImageUrl")
                             
                             if !authResponse.data.onboardingComplete {
                                 self.navigationState = .onboarding
