@@ -9,6 +9,7 @@ struct CustomToastMessageView: View {
             .font(.system(size: 14, weight: .semibold))
             .frame(maxWidth: .infinity)
             .foregroundColor(.white)
+            .multilineTextAlignment(.center)
             .padding(.vertical, 19.5)
             .background(Color(hex: "#2A9D8F").opacity(0.6))
             .cornerRadius(200)

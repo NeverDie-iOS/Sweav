@@ -24,17 +24,17 @@ struct NameIdSetupView: View {
                         .foregroundStyle(Color(hex: "#70706E"))
                     
                     TextField("", text: $nickname)
-                    .focused($isNicknameFocused)
-                    .font(.system(size: 20, weight: .semibold))
-                    .foregroundStyle(Color.default)
-                    .multilineTextAlignment(.center)
-                    .padding(.vertical, 14)
-                    .background(Color(hex: "#FAF8F4"))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 16)
-                            .stroke(isNicknameFocused ? Color.main : Color(hex: "#FAF8F4"), lineWidth: 4)
-                    )
-                    .cornerRadius(16)
+                        .focused($isNicknameFocused)
+                        .font(.system(size: 20, weight: .semibold))
+                        .foregroundStyle(Color.default)
+                        .multilineTextAlignment(.center)
+                        .padding(.vertical, 14)
+                        .background(Color(hex: "#FAF8F4"))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 16)
+                                .stroke(isNicknameFocused ? Color.main : Color(hex: "#FAF8F4"), lineWidth: 4)
+                        )
+                        .cornerRadius(16)
                 }
                 
                 HStack {
@@ -44,18 +44,18 @@ struct NameIdSetupView: View {
                         .foregroundStyle(Color(hex: "#70706E"))
                     
                     TextField("", text: $id)
-                    .keyboardType(.asciiCapable)
-                    .focused($isIdFocused)
-                    .font(.system(size: 16))
-                    .foregroundStyle(Color.default)
-                    .multilineTextAlignment(.center)
-                    .padding(.vertical, 16)
-                    .background(Color(hex: "#FAF8F4"))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 16)
-                            .stroke(isIdFocused ? Color.main : Color(hex: "#FAF8F4"), lineWidth: 4)
-                    )
-                    .cornerRadius(16)
+                        .keyboardType(.asciiCapable)
+                        .focused($isIdFocused)
+                        .font(.system(size: 16))
+                        .foregroundStyle(Color.default)
+                        .multilineTextAlignment(.center)
+                        .padding(.vertical, 16)
+                        .background(Color(hex: "#FAF8F4"))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 16)
+                                .stroke(isIdFocused ? Color.main : Color(hex: "#FAF8F4"), lineWidth: 4)
+                        )
+                        .cornerRadius(16)
                 }
             }
             .padding(.top, 50)
@@ -68,17 +68,46 @@ struct NameIdSetupView: View {
             Spacer()
             
             Button {
-                
+                Task {
+                    guard nameIdSetupVM.validateNickname(nickname) else { return }
+                    
+                    nameIdSetupVM.validateId(id) { isValid in
+                        if isValid {
+                            // 모든 검사 통과 시 화면 전환
+                        }
+                    }
+                }
             } label: {
-                Text("다음")
-                    .font(.system(size: 18, weight: .semibold))
-                    .foregroundStyle(Color.white)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 17)
-                    .background(Color.main)
-                    .cornerRadius(16)
+                if !nickname.isEmpty && !id.isEmpty {
+                    Text("다음")
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundStyle(Color.white)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 17)
+                        .background(Color.main)
+                        .cornerRadius(16)
+                } else {
+                    Text("다음")
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundStyle(Color.white)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 17)
+                        .background(Color.disabled)
+                        .cornerRadius(16)
+                }
             }
+            .disabled(nickname.isEmpty || id.isEmpty)
             .padding(.bottom, 20)
+            .overlay(
+                Group {
+                    if nameIdSetupVM.showToast {
+                        CustomToastMessageView(message: nameIdSetupVM.toastMessage ?? "잘못된 입력입니다.")
+                            .offset(y: -90)
+                    }
+                }
+                    .transition(.opacity)
+                    .animation(.easeInOut(duration: 0.3), value: nameIdSetupVM.showToast)
+            )
         }
         .padding(.horizontal, 40)
         .navigationBarBackButtonHidden(true)
