@@ -3,6 +3,7 @@ import SwiftUI
 enum OnboardingRoute: String, Hashable {
     case nameIdSetup = "NameIdSetupView"
     case profileImageSetup = "ProfileImageSetupView"
+    case genderSelection = "GenderSelectionView"
 }
 
 struct TermsView: View {
@@ -189,6 +190,8 @@ struct TermsView: View {
                         NameIdSetupView(navigationPath: $navigationPath)
                     case .profileImageSetup:
                         ProfileImageSetupView()
+                    case .genderSelection:
+                        GenderSelectionView()
                 }
             }
         }
