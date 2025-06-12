@@ -2,6 +2,7 @@ import SwiftUI
 
 enum OnboardingRoute: String, Hashable {
     case nameIdSetup = "NameIdSetupView"
+    case profileImageSetup = "ProfileImageSetupView"
 }
 
 struct TermsView: View {
@@ -185,9 +186,9 @@ struct TermsView: View {
             .navigationDestination(for: OnboardingRoute.self) { route in
                 switch route {
                     case .nameIdSetup:
-                        NameIdSetupView()
-                    default :
-                        EmptyView()
+                        NameIdSetupView(navigationPath: $navigationPath)
+                    case .profileImageSetup:
+                        ProfileImageSetupView()
                 }
             }
         }

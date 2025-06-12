@@ -7,6 +7,7 @@ struct NameIdSetupView: View {
     @FocusState private var isNicknameFocused: Bool
     @FocusState private var isIdFocused: Bool
     
+    @Binding var navigationPath: NavigationPath
     @StateObject private var nameIdSetupVM = NameIdSetupViewModel()
     
     var body: some View {
@@ -73,7 +74,7 @@ struct NameIdSetupView: View {
                     
                     nameIdSetupVM.validateId(id) { isValid in
                         if isValid {
-                            // 모든 검사 통과 시 화면 전환
+                            navigationPath.append(OnboardingRoute.profileImageSetup)
                         }
                     }
                 }
@@ -118,8 +119,4 @@ struct NameIdSetupView: View {
             id = newId
         }
     }
-}
-
-#Preview {
-    NameIdSetupView()
 }
