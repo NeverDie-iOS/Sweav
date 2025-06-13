@@ -3,13 +3,13 @@ import PhotosUI
 import Kingfisher
 
 struct ProfileImageSetupView: View {
-    @State private var isDefaultKakaoProfile: Bool = true
     @State private var kakaoProfileImage: UIImage? = nil
     @State private var selectedItem: PhotosPickerItem? = nil
     @State private var selectedImage: UIImage? = nil
     @Binding var navigationPath: NavigationPath
     
     let profileImageUrl = UserDefaults.standard.string(forKey: "profileImageUrl") ?? ""
+    let isDefaultImage = UserDefaults.standard.string(forKey: "profileImgDefault") ?? "0"
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -78,13 +78,33 @@ struct ProfileImageSetupView: View {
             
             Spacer()
             
-            // TODO: Button 
             Button {
-                
+                navigationPath.append(OnboardingRoute.genderSelection)
             } label: {
-                Text("버튼")
+                if isDefaultImage == "1" && selectedImage == nil {
+                    Text("건너뛰기")
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundStyle(Color.main)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 17)
+                        .background(Color.white)
+                        .cornerRadius(16)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 16)
+                                .inset(by: 1)
+                                .stroke(Color.main, lineWidth: 2)
+                        )
+                } else {
+                    Text("다음")
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundStyle(Color.white)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 17)
+                        .background(Color.main)
+                        .cornerRadius(16)
+                }
             }
-            
+            .padding(.bottom, 40)
         }
         .padding(.horizontal, 40)
         .navigationBarBackButtonHidden(true)

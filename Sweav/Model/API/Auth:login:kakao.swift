@@ -11,9 +11,10 @@ struct AuthLoginKakaoResponse: Codable {
     let statusCode: String
     
     struct UserData: Codable {
-        let accessToken: String
         let memberId: Int
-        let onboardingComplete: Bool
+        let accessToken: String
         let profileImgUrl: String
+        let onboardingComplete: Bool
+        let profileImgDefault: Bool
     }
 }
