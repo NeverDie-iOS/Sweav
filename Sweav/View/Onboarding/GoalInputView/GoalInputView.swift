@@ -136,6 +136,7 @@ struct GoalInputView: View {
                 formatter.dateFormat = "yyyy-MM-dd"
                 
                 UserDefaults.standard.set(formatter.string(from: goalDate), forKey: "goalDate")
+                UserDefaults.standard.set(goalWeight, forKey: "goalWeight")
                 
                 navigationPath.append(OnboardingRoute.planSetup)
             } label: {

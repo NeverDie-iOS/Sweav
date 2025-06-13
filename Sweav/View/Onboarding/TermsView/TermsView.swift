@@ -9,6 +9,8 @@ enum OnboardingRoute: String, Hashable {
     case activityLevelSelection = "ActivityLevelSelectionView"
     case goalInput = "GoalInputView"
     case planSetup = "PlanSetupView"
+    case processing = "ProcessingView"
+    case completeOnboading = "CompleteOnboardingView"
 }
 
 struct TermsView: View {
@@ -207,6 +209,16 @@ struct TermsView: View {
                         GoalInputView(navigationPath: $navigationPath)
                     case .planSetup:
                         PlanSetupView(navigationPath: $navigationPath)
+                    case .processing:
+                        ProcessingView(navigationPath: $navigationPath)
+                    case .completeOnboading:
+                        CompleteOnboardingView(navigationPath: $navigationPath)
+                }
+            }
+            .navigationDestination(for: MainRoute.self) { route in
+                switch route {
+                    case .main:
+                        MainView()
                 }
             }
         }

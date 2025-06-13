@@ -1,12 +1,14 @@
 import SwiftUI
 import PhotosUI
 import Kingfisher
+import Alamofire
 
 struct ProfileImageSetupView: View {
-    @State private var kakaoProfileImage: UIImage? = nil
     @State private var selectedItem: PhotosPickerItem? = nil
     @State private var selectedImage: UIImage? = nil
     @Binding var navigationPath: NavigationPath
+    
+    @StateObject var profileImageSetupVM = ProfileImageSetupViewModel()
     
     let profileImageUrl = UserDefaults.standard.string(forKey: "profileImageUrl") ?? ""
     let isDefaultImage = UserDefaults.standard.string(forKey: "profileImgDefault") ?? "0"
@@ -79,7 +81,25 @@ struct ProfileImageSetupView: View {
             Spacer()
             
             Button {
-                navigationPath.append(OnboardingRoute.genderSelection)
+                if isDefaultImage == "1" && selectedImage == nil {
+                    let image = UIImage(named: "DefaultProfileImage")
+                    let imageData = image?.jpegData(compressionQuality: 0.8)
+                    UserDefaults.standard.set(imageData, forKey: "profileImageData")
+                } else if isDefaultImage == "0" && selectedImage == nil{
+                    if let url = URL(string: profileImageUrl) {
+                        AF.request(url).responseData { response in
+                            if let data = response.data {
+                                UserDefaults.standard.set(data, forKey: "profileImageData")
+                            }
+                        }
+                    }
+                } else {
+                    let imageData = selectedImage?.jpegData(compressionQuality: 0.8)
+                    UserDefaults.standard.set(imageData, forKey: "profileImageData")
+                    profileImageSetupVM.uploadProfileImage(imageData: imageData) {
+                        navigationPath.append(OnboardingRoute.genderSelection)
+                    }
+                }
             } label: {
                 if isDefaultImage == "1" && selectedImage == nil {
                     Text("건너뛰기")

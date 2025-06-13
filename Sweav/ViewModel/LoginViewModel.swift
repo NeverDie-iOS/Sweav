@@ -15,7 +15,6 @@ class LoginViewModel: ObservableObject {
         var id: String { "\(self)" }
     }
     
-    
     @Published var showLogo = false
     @Published var showMainText = false
     @Published var showSubText = false
@@ -85,6 +84,7 @@ class LoginViewModel: ObservableObject {
                 DispatchQueue.main.async {
                     switch response.result {
                         case .success(let authResponse):
+                            print("서버 전송 성공")
                             KeychainWrapper.standard.set(authResponse.data.accessToken, forKey: "accessToken")
                             UserDefaults.standard.set(authResponse.data.profileImgUrl, forKey: "profileImageUrl")
                             UserDefaults.standard.set(authResponse.data.profileImgDefault, forKey: "profileImgDefault")
@@ -92,8 +92,9 @@ class LoginViewModel: ObservableObject {
                             if !authResponse.data.onboardingComplete {
                                 self.navigationState = .onboarding
                             } else {
+                                // TODO
                                 // Expired refreshtoken && complete onboarding
-                                // TODO: Navigate to Main View
+                                self.navigationState = .onboarding
                             }
                             
                             

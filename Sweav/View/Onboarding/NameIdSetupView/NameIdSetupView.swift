@@ -74,6 +74,9 @@ struct NameIdSetupView: View {
                     
                     nameIdSetupVM.validateId(id) { isValid in
                         if isValid {
+                            UserDefaults.standard.set(nickname, forKey: "nickname")
+                            UserDefaults.standard.set(id, forKey: "feedId")
+
                             navigationPath.append(OnboardingRoute.profileImageSetup)
                         }
                     }

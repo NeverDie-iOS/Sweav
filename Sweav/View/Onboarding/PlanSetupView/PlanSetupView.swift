@@ -6,6 +6,8 @@ struct PlanSetupView: View {
     @State private var workoutDays: Double = 0
     @Binding var navigationPath: NavigationPath
     
+    @StateObject private var planSetupVM = PlanSetupViewModel()
+    
     var body: some View {
         VStack(alignment: .leading) {
             Button {
@@ -70,8 +72,8 @@ struct PlanSetupView: View {
             
             Button {
                 UserDefaults.standard.set(workoutDays, forKey: "inputWeekExerciseCnt")
-                
-                // TODO: Navigate
+                planSetupVM.sendToServer()
+                navigationPath.append(OnboardingRoute.processing)
             } label: {
                 if isValueChanged {
                     Text("입력 완료")
