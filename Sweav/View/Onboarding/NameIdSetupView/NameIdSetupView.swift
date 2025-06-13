@@ -110,8 +110,8 @@ struct NameIdSetupView: View {
                     .animation(.easeInOut(duration: 0.3), value: nameIdSetupVM.showToast)
             )
         }
-        .padding(.horizontal, 40)
         .navigationBarBackButtonHidden(true)
+        .padding(.horizontal, 40)
         .onReceive(nameIdSetupVM.$randomNickname) { newNickname in
             nickname = newNickname
         }

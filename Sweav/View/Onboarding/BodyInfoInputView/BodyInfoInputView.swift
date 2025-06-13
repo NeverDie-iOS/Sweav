@@ -136,7 +136,7 @@ struct BodyInfoInputView: View {
                     .cornerRadius(16)
             }
             .disabled(height.isEmpty || weight.isEmpty)
-            .padding(.bottom, 40)
+            .padding(.bottom, 20)
         }
         .padding(.horizontal, 40)
         .navigationBarBackButtonHidden(true)

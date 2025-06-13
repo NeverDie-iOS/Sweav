@@ -188,6 +188,7 @@ struct TermsView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .padding(.horizontal, 40)
+            .padding(.bottom, 20)
             .navigationDestination(for: OnboardingRoute.self) { route in
                 switch route {
                     case .nameIdSetup:

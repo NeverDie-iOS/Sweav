@@ -98,7 +98,7 @@ struct AgeInputView: View {
                     .cornerRadius(16)
             }
             .disabled(age.isEmpty)
-            .padding(.bottom, 40)
+            .padding(.bottom, 20)
         }
         .padding(.horizontal, 40)
         .navigationBarBackButtonHidden(true)

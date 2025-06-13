@@ -96,7 +96,7 @@ struct GenderSelectionView: View {
                         .cornerRadius(16)
             }
             .disabled(selectedGender == nil)
-            .padding(.bottom, 40)
+            .padding(.bottom, 20)
         }
         .padding(.horizontal, 40)
         .navigationBarBackButtonHidden(true)
