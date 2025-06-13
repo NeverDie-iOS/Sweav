@@ -46,7 +46,7 @@ struct AgeInputView: View {
                 .font(.system(size: 14))
                 .foregroundStyle(Color.tertiary)
             
-            VStack {
+            VStack(spacing: 16) {
                 Text("만 나이로 입력해주세요.")
                     .font(.system(size: 14))
                     .foregroundStyle(Color.tertiary)

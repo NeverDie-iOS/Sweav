@@ -4,9 +4,9 @@ struct LoginView: View {
     @StateObject private var loginVM = LoginViewModel()
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             Text("sweav.")
-                .font(.system(size: 48, weight: .heavy))
+                .font(.system(size: 48, weight: .bold))
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .foregroundStyle(Color.main)
                 .padding(.top, 146)

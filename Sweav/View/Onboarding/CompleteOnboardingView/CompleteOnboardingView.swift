@@ -4,8 +4,8 @@ struct CompleteOnboardingView: View {
     @Binding var navigationPath: NavigationPath
     
     var body: some View {
-        VStack {
-            VStack(alignment: .leading) {
+        VStack(spacing: 0) {
+            VStack(alignment: .leading, spacing: 12) {
                 Text("건강해질 준비 완료!")
                     .font(.system(size: 24, weight: .semibold))
                     .foregroundStyle(Color.default)

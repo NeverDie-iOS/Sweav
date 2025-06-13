@@ -6,7 +6,7 @@ struct ProcessingView: View {
     
     var body: some View {
         VStack {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 12) {
                 Text("이제 계산해볼게요..!")
                     .font(.system(size: 24, weight: .semibold))
                     .foregroundStyle(Color.default)

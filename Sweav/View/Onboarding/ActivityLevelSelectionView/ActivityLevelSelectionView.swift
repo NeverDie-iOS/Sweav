@@ -9,7 +9,7 @@ struct ActivityLevelSelectionView: View {
     let activityLevels = ["몸을 거의 안움직여요", "가벼운 산책 정도만 해요", "규칙적인 활동을 해요", "거의 매일 운동을 해요", "매일 강도 높은 운동을 해요"]
     
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 0) {
             Button {
                 navigationPath.removeLast()
             } label: {
@@ -43,6 +43,7 @@ struct ActivityLevelSelectionView: View {
                     .font(.system(size: 14))
                     .foregroundStyle(Color.tertiary)
             }
+            .padding(.top, 12)
             
             Text("적정 칼로리 및 영양분 섭취를 제안하기 위해 활용돼요.")
                 .font(.system(size: 14))

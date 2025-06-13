@@ -24,7 +24,7 @@ struct TermsView: View {
     
     var body: some View {
         NavigationStack(path: $navigationPath) {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 0) {
                 Text("스위브 이용을 위해\n약관에 동의해주세요.")
                     .font(.system(size: 24, weight: .heavy))
                     .padding(.top, 87)
@@ -53,10 +53,10 @@ struct TermsView: View {
                         .font(.system(size: 16, weight: .semibold))
                         .foregroundStyle(Color.default)
                 }
-                .padding(.top, 150)
+                .padding(.top, 153)
                 
                 VStack(spacing: 15) {
-                    HStack {
+                    HStack(spacing: 0) {
                         Button {
                             isTermsAgreed.toggle()
                         } label: {
@@ -64,7 +64,7 @@ struct TermsView: View {
                         }
                         
                         Text("필수")
-                            .font(.system(size: 16, weight: .medium))
+                            .font(.system(size: 12, weight: .medium))
                             .foregroundStyle(Color.main)
                             .padding(.vertical, 4)
                             .padding(.horizontal, 6)
@@ -72,11 +72,12 @@ struct TermsView: View {
                                 RoundedRectangle(cornerRadius: 8)
                                     .fill(Color(hex: "#E9F5F4"))
                             )
-                            .padding(.leading, 9)
+                            .padding(.leading, 16)
                         
                         Text("서비스 이용약관")
-                            .foregroundStyle(Color.default)
-                            .padding(.leading, 4.5)
+                            .font(.system(size: 16))
+                            .foregroundStyle(Color.black)
+                            .padding(.leading, 8)
                         
                         Spacer()
                         
@@ -84,6 +85,7 @@ struct TermsView: View {
                             showTermsSheet = true
                         } label: {
                             Text("보기")
+                                .font(.system(size: 14))
                                 .foregroundStyle(Color.tertiary)
                         }
                         .sheet(isPresented: $showTermsSheet) {
@@ -91,7 +93,7 @@ struct TermsView: View {
                         }
                     }
                     
-                    HStack {
+                    HStack(spacing: 0) {
                         Button {
                             isPrivacyAgreed.toggle()
                         } label: {
@@ -100,7 +102,7 @@ struct TermsView: View {
                         
                         
                         Text("필수")
-                            .font(.system(size: 16, weight: .medium))
+                            .font(.system(size: 12, weight: .medium))
                             .foregroundStyle(Color.main)
                             .padding(.vertical, 4)
                             .padding(.horizontal, 6)
@@ -108,11 +110,12 @@ struct TermsView: View {
                                 RoundedRectangle(cornerRadius: 8)
                                     .fill(Color(hex: "#E9F5F4"))
                             )
-                            .padding(.leading, 9)
+                            .padding(.leading, 16)
                         
                         Text("개인정보 처리방침")
-                            .foregroundStyle(Color.default)
-                            .padding(.leading, 4.5)
+                            .font(.system(size: 16))
+                            .foregroundStyle(Color.black)
+                            .padding(.leading, 8)
                         
                         Spacer()
                         
@@ -120,6 +123,7 @@ struct TermsView: View {
                             showPrivacySheet = true
                         } label: {
                             Text("보기")
+                                .font(.system(size: 14))
                                 .foregroundStyle(Color.tertiary)
                         }
                         .sheet(isPresented: $showPrivacySheet) {
@@ -127,7 +131,7 @@ struct TermsView: View {
                         }
                     }
                     
-                    HStack() {
+                    HStack(spacing: 0) {
                         Button {
                             isPushAgreed.toggle()
                         } label: {
@@ -135,7 +139,7 @@ struct TermsView: View {
                         }
                         
                         Text("선택")
-                            .font(.system(size: 16, weight: .medium))
+                            .font(.system(size: 12, weight: .medium))
                             .foregroundStyle(Color(hex: "#70706E"))
                             .padding(.vertical, 4)
                             .padding(.horizontal, 6)
@@ -143,18 +147,19 @@ struct TermsView: View {
                                 RoundedRectangle(cornerRadius: 8)
                                     .fill(Color(hex: "#F0EEEA"))
                             )
-                            .padding(.leading, 9)
+                            .padding(.leading, 16)
                         
                         Text("푸시 알림 기능")
-                            .foregroundStyle(Color.default)
-                            .padding(.leading, 4.5)
+                            .font(.system(size: 16))
+                            .foregroundStyle(Color.black)
+                            .padding(.leading, 8)
                         
                         Spacer()
                         
                         EmptyView()
                     }
                 }
-                .padding(.top, 16)
+                .padding(.top, 20)
                 .padding(.leading, 9)
                 
                 Spacer()

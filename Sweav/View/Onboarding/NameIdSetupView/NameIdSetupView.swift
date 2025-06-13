@@ -11,7 +11,7 @@ struct NameIdSetupView: View {
     @StateObject private var nameIdSetupVM = NameIdSetupViewModel()
     
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 0) {
             Text("만나서 반가워요!\n제가 어떻게 부르면 될까요?")
                 .font(.system(size: 24, weight: .semibold))
                 .foregroundStyle(Color.default)
@@ -39,7 +39,7 @@ struct NameIdSetupView: View {
                 }
                 
                 HStack {
-                    Text("ID")
+                    Text("@ ID")
                         .frame(width: 60)
                         .font(.system(size: 14, weight: .semibold))
                         .foregroundStyle(Color(hex: "#70706E"))

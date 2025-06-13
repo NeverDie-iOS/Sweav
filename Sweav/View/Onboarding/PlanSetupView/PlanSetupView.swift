@@ -9,7 +9,7 @@ struct PlanSetupView: View {
     @StateObject private var planSetupVM = PlanSetupViewModel()
     
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 0) {
             Button {
                 navigationPath.removeLast()
             } label: {
@@ -42,6 +42,7 @@ struct PlanSetupView: View {
                     .font(.system(size: 14))
                     .foregroundStyle(Color.tertiary)
             }
+            .padding(.top, 12)
             
             Text("적정 칼로리 및 영양분 섭취를 제안하기 위해 활용돼요.")
                 .font(.system(size: 14))
@@ -66,7 +67,7 @@ struct PlanSetupView: View {
             }
             .frame(maxWidth: .infinity, alignment: .center)
             .padding(.top, 150)
-            .padding(.horizontal, 20)
+            .padding(.horizontal, 26)
             
             Spacer()
             

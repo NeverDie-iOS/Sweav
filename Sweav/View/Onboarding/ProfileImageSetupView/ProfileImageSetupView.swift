@@ -14,7 +14,7 @@ struct ProfileImageSetupView: View {
     let isDefaultImage = UserDefaults.standard.string(forKey: "profileImgDefault") ?? "0"
     
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 0) {
             Button {
                 navigationPath.removeLast()
             } label: {
@@ -82,9 +82,11 @@ struct ProfileImageSetupView: View {
             
             Button {
                 if isDefaultImage == "1" && selectedImage == nil {
+                    print("건너뛰기")
                     let image = UIImage(named: "DefaultProfileImage")
                     let imageData = image?.jpegData(compressionQuality: 0.8)
                     UserDefaults.standard.set(imageData, forKey: "profileImageData")
+                    navigationPath.append(OnboardingRoute.genderSelection)
                 } else if isDefaultImage == "0" && selectedImage == nil{
                     if let url = URL(string: profileImageUrl) {
                         AF.request(url).responseData { response in
@@ -92,6 +94,7 @@ struct ProfileImageSetupView: View {
                                 UserDefaults.standard.set(data, forKey: "profileImageData")
                             }
                         }
+                        navigationPath.append(OnboardingRoute.genderSelection)
                     }
                 } else {
                     let imageData = selectedImage?.jpegData(compressionQuality: 0.8)
