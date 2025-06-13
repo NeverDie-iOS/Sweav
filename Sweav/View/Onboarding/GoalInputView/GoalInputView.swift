@@ -127,7 +127,7 @@ struct GoalInputView: View {
                 }
             }
             .frame(maxWidth: .infinity, alignment: .center)
-            .padding(.top, UIScreen.main.bounds.height * 0.15)
+            .padding(.top, 130)
             
             Spacer()
             
@@ -137,11 +137,18 @@ struct GoalInputView: View {
                 
                 UserDefaults.standard.set(formatter.string(from: goalDate), forKey: "goalDate")
                 
-                // TODO: Navigate
+                navigationPath.append(OnboardingRoute.planSetup)
             } label: {
-                Text("Button")
+                Text("다음")
+                    .font(.system(size: 18, weight: .semibold))
+                    .foregroundStyle(Color.white)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 17)
+                    .background(!isDateChanged || goalWeight.isEmpty ? Color(hex: "#AAD8D2") : Color.main)
+                    .cornerRadius(16)
             }
             .disabled(!isDateChanged || goalWeight.isEmpty)
+            .padding(.bottom, 20)
         }
         .padding(.horizontal, 40)
         .navigationBarBackButtonHidden(true)
