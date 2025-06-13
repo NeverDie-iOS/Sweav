@@ -6,12 +6,13 @@ struct GoalInputView: View {
     @State private var goalDate: Date = Date()
     @State private var goalWeight: String = ""
     @State private var isDateChanged: Bool = false
+    @Binding var navigationPath: NavigationPath
     @FocusState private var isGoalWeightFocused: Bool
     
     var body: some View {
         VStack(alignment: .leading) {
             Button {
-                //TODO: Back
+                navigationPath.removeLast()
             } label: {
                 Image("BackButton")
             }
@@ -148,5 +149,12 @@ struct GoalInputView: View {
 }
 
 #Preview {
-    GoalInputView()
+    struct PreviewWrapper: View {
+        @State private var navigationPath = NavigationPath()
+        
+        var body: some View {
+            GoalInputView(navigationPath: $navigationPath)
+        }
+    }
+    return PreviewWrapper()
 }

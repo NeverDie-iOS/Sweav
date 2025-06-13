@@ -3,11 +3,12 @@ import SwiftUI
 struct GenderSelectionView: View {
     @State private var showMifflinSheet: Bool = false
     @State private var selectedGender: String? = nil
+    @Binding var navigationPath: NavigationPath
     
     var body: some View {
         VStack(alignment: .leading) {
             Button {
-                //TODO: Back
+                navigationPath.removeLast()
             } label: {
                 Image("BackButton")
             }
@@ -49,11 +50,11 @@ struct GenderSelectionView: View {
                 Button {
                     selectedGender = "M"
                 } label: {
-                        Text("남자")
-                            .font(.system(size: 16, weight: .semibold))
-                            .foregroundStyle(selectedGender == "M" ? Color(hex: "#2A9D8F") : Color(hex: "#70706E"))
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 18.5)
+                    Text("남자")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundStyle(selectedGender == "M" ? Color(hex: "#2A9D8F") : Color(hex: "#70706E"))
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 18.5)
                 }
                 .background(selectedGender == "M" ? Color(hex: "#D4EBE9") : Color(hex: "#FAF8F4"))
                 .overlay(
@@ -96,5 +97,12 @@ struct GenderSelectionView: View {
 }
 
 #Preview {
-    GenderSelectionView()
+    struct PreviewWrapper: View {
+        @State private var navigationPath = NavigationPath()
+        
+        var body: some View {
+            GenderSelectionView(navigationPath: $navigationPath)
+        }
+    }
+    return PreviewWrapper()
 }

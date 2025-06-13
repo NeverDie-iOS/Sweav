@@ -4,6 +4,11 @@ enum OnboardingRoute: String, Hashable {
     case nameIdSetup = "NameIdSetupView"
     case profileImageSetup = "ProfileImageSetupView"
     case genderSelection = "GenderSelectionView"
+    case ageInput = "AgeInputView"
+    case bodyInfoInput = "BodyInfoInputView"
+    case activityLevelSelection = "ActivityLevelSelectionView"
+    case goalInput = "GoalInputView"
+    case planSetup = "PlanSetupView"
 }
 
 struct TermsView: View {
@@ -47,7 +52,6 @@ struct TermsView: View {
                         .foregroundStyle(Color.default)
                 }
                 .padding(.top, 150)
-                
                 
                 VStack(spacing: 15) {
                     HStack {
@@ -191,13 +195,22 @@ struct TermsView: View {
                     case .profileImageSetup:
                         ProfileImageSetupView(navigationPath: $navigationPath)
                     case .genderSelection:
-                        GenderSelectionView()
+                        GenderSelectionView(navigationPath: $navigationPath)
+                    case .ageInput:
+                        AgeInputView(navigationPath: $navigationPath)
+                    case .bodyInfoInput:
+                        BodyInfoInputView(navigationPath: $navigationPath)
+                    case .activityLevelSelection:
+                        ActivityLevelSelectionView(navigationPath: $navigationPath)
+                    case .goalInput:
+                        GoalInputView(navigationPath: $navigationPath)
+                    case .planSetup:
+                        PlanSetupView(navigationPath: $navigationPath)
                 }
             }
         }
     }
 }
-
 
 #Preview {
     TermsView()

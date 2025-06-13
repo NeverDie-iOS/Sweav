@@ -4,13 +4,14 @@ struct ActivityLevelSelectionView: View {
     @State private var showMifflinSheet: Bool = false
     @State private var activityLevel: String = ""
     @State private var selectedIndex: Int? = nil
+    @Binding var navigationPath: NavigationPath
     
     let activityLevels = ["몸을 거의 안움직여요", "가벼운 산책 정도만 해요", "규칙적인 활동을 해요", "거의 매일 운동을 해요", "매일 강도 높은 운동을 해요"]
     
     var body: some View {
         VStack(alignment: .leading) {
             Button {
-                //TODO: Back
+                navigationPath.removeLast()
             } label: {
                 Image("BackButton")
             }
@@ -97,5 +98,12 @@ struct ActivityLevelSelectionView: View {
 }
 
 #Preview {
-    ActivityLevelSelectionView()
+    struct PreviewWrapper: View {
+        @State private var navigationPath = NavigationPath()
+        
+        var body: some View {
+            ActivityLevelSelectionView(navigationPath: $navigationPath)
+        }
+    }
+    return PreviewWrapper()
 }

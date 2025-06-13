@@ -4,11 +4,12 @@ struct PlanSetupView: View {
     @State private var showMifflinSheet: Bool = false
     @State private var isValueChanged: Bool = false
     @State private var workoutDays: Double = 0
+    @Binding var navigationPath: NavigationPath
     
     var body: some View {
         VStack(alignment: .leading) {
             Button {
-                //TODO: Back
+                navigationPath.removeLast()
             } label: {
                 Image("BackButton")
             }
@@ -79,5 +80,12 @@ struct PlanSetupView: View {
 }
 
 #Preview {
-    PlanSetupView()
+    struct PreviewWrapper: View {
+        @State private var navigationPath = NavigationPath()
+        
+        var body: some View {
+            PlanSetupView(navigationPath: $navigationPath)
+        }
+    }
+    return PreviewWrapper()
 }

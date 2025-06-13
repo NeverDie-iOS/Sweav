@@ -3,12 +3,13 @@ import SwiftUI
 struct AgeInputView: View {
     @State private var showMifflinSheet: Bool = false
     @State private var age: String = ""
+    @Binding var navigationPath: NavigationPath
     @FocusState private var isAgeFocused: Bool
     
     var body: some View {
         VStack(alignment: .leading) {
             Button {
-                //TODO: Back
+                navigationPath.removeLast()
             } label: {
                 Image("BackButton")
             }
@@ -90,5 +91,12 @@ struct AgeInputView: View {
 }
 
 #Preview {
-    AgeInputView()
+    struct PreviewWrapper: View {
+        @State private var navigationPath = NavigationPath()
+        
+        var body: some View {
+            AgeInputView(navigationPath: $navigationPath)
+        }
+    }
+    return PreviewWrapper()
 }

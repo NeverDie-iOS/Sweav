@@ -1,16 +1,17 @@
 import SwiftUI
 
-struct BodyInfoSetupView: View {
+struct BodyInfoInputView: View {
     @State private var showMifflinSheet: Bool = false
     @State private var height: String = ""
     @State private var weight: String = ""
+    @Binding var navigationPath: NavigationPath
     @FocusState private var isHeightFocused: Bool
     @FocusState private var isWeightFocused: Bool
     
     var body: some View {
         VStack(alignment: .leading) {
             Button {
-                //TODO: Back
+                navigationPath.removeLast()
             } label: {
                 Image("BackButton")
             }
@@ -129,5 +130,12 @@ struct BodyInfoSetupView: View {
 }
 
 #Preview {
-    BodyInfoSetupView()
+    struct PreviewWrapper: View {
+        @State private var navigationPath = NavigationPath()
+        
+        var body: some View {
+            BodyInfoInputView(navigationPath: $navigationPath)
+        }
+    }
+    return PreviewWrapper()
 }

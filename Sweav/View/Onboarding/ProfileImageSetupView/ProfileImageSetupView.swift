@@ -7,14 +7,12 @@ struct ProfileImageSetupView: View {
     @State private var kakaoProfileImage: UIImage? = nil
     @State private var selectedItem: PhotosPickerItem? = nil
     @State private var selectedImage: UIImage? = nil
-    
     @Binding var navigationPath: NavigationPath
     
     let profileImageUrl = UserDefaults.standard.string(forKey: "profileImageUrl") ?? ""
     
     var body: some View {
         VStack(alignment: .leading) {
-            
             Button {
                 navigationPath.removeLast()
             } label: {

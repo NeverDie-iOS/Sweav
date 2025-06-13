@@ -120,3 +120,14 @@ struct NameIdSetupView: View {
         }
     }
 }
+
+#Preview {
+    struct PreviewWrapper: View {
+        @State private var navigationPath = NavigationPath()
+        
+        var body: some View {
+            NameIdSetupView(navigationPath: $navigationPath)
+        }
+    }
+    return PreviewWrapper()
+}
