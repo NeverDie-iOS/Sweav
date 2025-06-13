@@ -74,6 +74,9 @@ struct BodyInfoInputView: View {
                         if newValue.count > 3 {
                             height = String(newValue.prefix(3))
                         }
+                        if height.first == "0" {
+                            height.removeFirst()
+                        }
                     }
                     
                     Text("cm")
@@ -105,6 +108,9 @@ struct BodyInfoInputView: View {
                         if newValue.count > 3 {
                             weight = String(newValue.prefix(3))
                         }
+                        if weight.first == "0" {
+                            weight.removeFirst()
+                        }
                     }
                     
                     Text("kg")
@@ -119,10 +125,18 @@ struct BodyInfoInputView: View {
             Button {
                 UserDefaults.standard.set(height, forKey: "height")
                 UserDefaults.standard.set(weight, forKey: "weight")
+                navigationPath.append(OnboardingRoute.activityLevelSelection)
             } label: {
-                Text("Button")
+                Text("다음")
+                    .font(.system(size: 18, weight: .semibold))
+                    .foregroundStyle(Color.white)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 17)
+                    .background(height.isEmpty || weight.isEmpty ? Color(hex: "#AAD8D2") : Color.main)
+                    .cornerRadius(16)
             }
             .disabled(height.isEmpty || weight.isEmpty)
+            .padding(.bottom, 40)
         }
         .padding(.horizontal, 40)
         .navigationBarBackButtonHidden(true)
