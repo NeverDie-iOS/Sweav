@@ -87,10 +87,19 @@ struct ActivityLevelSelectionView: View {
                             UserDefaults.standard.set("ATHLETE_EXERCISE", forKey: "activityType")
                     }
                 }
+                
+                navigationPath.append(OnboardingRoute.goalInput)
             } label: {
-                Text("Button")
+                Text("다음")
+                    .font(.system(size: 18, weight: .semibold))
+                    .foregroundStyle(Color.white)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 17)
+                    .background(selectedIndex == nil ? Color(hex: "#AAD8D2") : Color.main)
+                    .cornerRadius(16)
             }
             .disabled(activityLevel.isEmpty)
+            .padding(.bottom, 20)
         }
         .padding(.horizontal, 40)
         .navigationBarBackButtonHidden(true)
