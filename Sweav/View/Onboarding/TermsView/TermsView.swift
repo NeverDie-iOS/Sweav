@@ -189,7 +189,7 @@ struct TermsView: View {
                     case .nameIdSetup:
                         NameIdSetupView(navigationPath: $navigationPath)
                     case .profileImageSetup:
-                        ProfileImageSetupView()
+                        ProfileImageSetupView(navigationPath: $navigationPath)
                     case .genderSelection:
                         GenderSelectionView()
                 }

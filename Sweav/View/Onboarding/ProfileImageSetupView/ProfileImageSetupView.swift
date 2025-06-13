@@ -8,13 +8,15 @@ struct ProfileImageSetupView: View {
     @State private var selectedItem: PhotosPickerItem? = nil
     @State private var selectedImage: UIImage? = nil
     
+    @Binding var navigationPath: NavigationPath
+    
     let profileImageUrl = UserDefaults.standard.string(forKey: "profileImageUrl") ?? ""
     
     var body: some View {
         VStack(alignment: .leading) {
             
             Button {
-                // TODO: Back
+                navigationPath.removeLast()
             } label: {
                 Image("BackButton")
             }
@@ -44,7 +46,6 @@ struct ProfileImageSetupView: View {
                     } label: {
                         Image("Delete")
                     }
-                    .padding(8)
                 } else if let url = URL(string: profileImageUrl) {
                     KFImage(URL(string: profileImageUrl))
                         .placeholder {
@@ -93,5 +94,12 @@ struct ProfileImageSetupView: View {
 }
 
 #Preview {
-    ProfileImageSetupView()
+    struct PreviewWrapper: View {
+        @State private var navigationPath = NavigationPath()
+        
+        var body: some View {
+            ProfileImageSetupView(navigationPath: $navigationPath)
+        }
+    }
+    return PreviewWrapper()
 }
