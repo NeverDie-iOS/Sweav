@@ -84,10 +84,16 @@ struct GenderSelectionView: View {
             Spacer()
             
             Button {
-                //TODO: Navigate
                 UserDefaults.standard.set(selectedGender, forKey: "gender")
+                navigationPath.append(OnboardingRoute.ageInput)
             } label: {
-                Text("Button")
+                    Text("다음")
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundStyle(Color.white)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 17)
+                        .background(selectedGender == nil ? Color(hex: "#AAD8D2") : Color.main)
+                        .cornerRadius(16)
             }
             .disabled(selectedGender == nil)
         }
