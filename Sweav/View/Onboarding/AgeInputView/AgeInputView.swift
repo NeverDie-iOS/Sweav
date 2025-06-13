@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct AgeInputView: View {
-    @State private var showMifflinSheet: Bool = false
     @State private var age: String = ""
+    @State private var showMifflinSheet: Bool = false
     @Binding var navigationPath: NavigationPath
     @FocusState private var isAgeFocused: Bool
     
@@ -71,6 +71,14 @@ struct AgeInputView: View {
                         .stroke(isAgeFocused ? Color.main : Color(hex: "#FAF8F4"), lineWidth: 4)
                 )
                 .cornerRadius(16)
+                .onChange(of: age) {
+                    if age.count > 2 {
+                        age = String(age.prefix(2))
+                    }
+                    if age.first == "0" {
+                        age.removeFirst()
+                    }
+                }
             }
             .frame(maxWidth: .infinity, alignment: .center)
             .padding(.top, 153)
@@ -78,12 +86,19 @@ struct AgeInputView: View {
             Spacer()
             
             Button {
-                // TODO: Navigate
                 UserDefaults.standard.set(age, forKey: "age")
+                navigationPath.append(OnboardingRoute.bodyInfoInput)
             } label: {
-                Text("Button")
+                Text("다음")
+                    .font(.system(size: 18, weight: .semibold))
+                    .foregroundStyle(Color.white)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 17)
+                    .background(age.isEmpty ? Color(hex: "#AAD8D2") : Color.main)
+                    .cornerRadius(16)
             }
             .disabled(age.isEmpty)
+            .padding(.bottom, 40)
         }
         .padding(.horizontal, 40)
         .navigationBarBackButtonHidden(true)
