@@ -70,9 +70,33 @@ struct PlanSetupView: View {
             
             Button {
                 UserDefaults.standard.set(workoutDays, forKey: "inputWeekExerciseCnt")
+                
+                // TODO: Navigate
             } label: {
-                Text("Button")
+                if isValueChanged {
+                    Text("입력 완료")
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundStyle(Color.white)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 17)
+                        .background(Color.main)
+                        .cornerRadius(16)
+                } else {
+                    Text("계획 없음")
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundStyle(Color.main)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 17)
+                        .background(Color.white)
+                        .cornerRadius(16)
+                        .overlay(
+                        RoundedRectangle(cornerRadius: 16)
+                        .inset(by: 1)
+                        .stroke(Color.main, lineWidth: 2)
+                        )
+                }
             }
+            .padding(.bottom, 20)
         }
         .padding(.horizontal, 40)
         .navigationBarBackButtonHidden(true)
